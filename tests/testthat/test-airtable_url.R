@@ -15,7 +15,7 @@ test_that("is_airtable_url works", {
 
 test_that("is_airtable_api_url works", {
   expect_true(
-    is_airtable_api_url("https://api.airtable.com")
+    is_airtable_api_url("https://api.airtable.com/v0")
   )
   expect_false(
     is_airtable_api_url("https://api.airtable.co")
