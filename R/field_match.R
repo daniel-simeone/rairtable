@@ -1,10 +1,12 @@
 #' Match a variable to a vector of field_types
 #'
 #' @noRd
-field_type_match <- function(type,
-                             values = field_types[["type"]],
-                             error_arg = caller_arg(type),
-                             error_call = caller_env()) {
+field_type_match <- function(
+  type,
+  values = rairtable::field_types[["type"]],
+  error_arg = caller_arg(type),
+  error_call = caller_env()
+) {
   arg_match(
     type,
     values = values,

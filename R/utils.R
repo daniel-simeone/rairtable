@@ -1,11 +1,3 @@
-.onLoad <- function(lib, pkg) {
-  utils::data(
-    list = c("field_types"),
-    package = pkg,
-    envir = parent.env(environment())
-  )
-}
-
 #' Wrapper for cli::cli_progress_along
 #'
 #' @param action String with the action to display in the progress message.

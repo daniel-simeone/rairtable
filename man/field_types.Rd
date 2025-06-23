@@ -5,7 +5,7 @@
 \alias{field_types}
 \title{Airtable Field Types}
 \format{
-A data frame with 33 rows and 6 variables:
+A data frame with 34 rows and 6 variables:
 \describe{
 \item{\code{type}}{Field type string}
 \item{\code{name}}{Name of field type}
@@ -19,7 +19,7 @@ A data frame with 33 rows and 6 variables:
 field_types
 }
 \description{
-A data frame of Airtable field types as of 2023-06-27 Find more information
+A data frame of Airtable field types as of 2025-06-23 Find more information
 on Airtable field types at:
 \url{https://airtable.com/developers/web/api/field-model}
 }

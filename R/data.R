@@ -1,10 +1,10 @@
 #' Airtable Field Types
 #'
-#' A data frame of Airtable field types as of 2023-06-27 Find more information
+#' A data frame of Airtable field types as of 2025-06-23 Find more information
 #' on Airtable field types at:
 #' <https://airtable.com/developers/web/api/field-model>
 #'
-#' @format A data frame with 33 rows and 6 variables:
+#' @format A data frame with 34 rows and 6 variables:
 #' \describe{
 #'   \item{`type`}{Field type string}
 #'   \item{`name`}{Name of field type}
