@@ -21,7 +21,7 @@ Imports:
     glue,
     httr2 (>= 0.2.3),
     lifecycle,
-    rlang (>= 1.1.0),
+    rlang,
     tibble,
     tidyselect,
     utils,
