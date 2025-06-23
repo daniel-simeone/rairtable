@@ -28,6 +28,9 @@
 #' @param safely If `TRUE`, confirm number and names of columns to update and
 #'   number of rows before executing update. Defaults to `NULL` which sets
 #'   safely based on the `rairtable.safely` option (which defaults to `TRUE`).
+#' @param model Optional. Table model returned by [get_table_model()] used to
+#' validate field names in `data`.
+#' @inheritParams req_update_records
 #' @inheritParams return_data_resp
 #' @inheritDotParams request_airtable -api_url -call
 #' @return A data frame of the input data, to be stored as an object or piped
@@ -119,6 +122,7 @@ update_records <- function(data,
 #'   field IDs instead of field names. The response is only returned if
 #'   `return_data = FALSE`.
 #' @inheritParams req_airtable
+#' @inheritParams req_create_records
 #' @param records,record Record ID or IDs to update as a character vector.
 #' @keywords internal
 #' @importFrom httr2 req_body_json req_perform

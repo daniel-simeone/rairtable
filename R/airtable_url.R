@@ -20,8 +20,8 @@ NULL
 #' @rdname airtable_url
 #' @name is_airtable_url
 #' @param url Airtable URL or API URL, typically in the form
-#'   "https://airtable.com/{baseID}/{tableIdOrName}/{viewId}" or
-#'   "https://api.airtable.com/v0/{baseId}/{tableIdOrName}". Note that, by
+#'   "https://airtable.com/\{baseID\}/\{tableIdOrName\}/\{viewId\}" or
+#'   "https://api.airtable.com/v0/\{baseId\}/\{tableIdOrName\}". Note that, by
 #'   default, shared URLs of the form "https://airtable.com/shr..." are not
 #'   supported.
 #' @param base_url Base URL for an Airtable base or view. Defaults `NULL` and

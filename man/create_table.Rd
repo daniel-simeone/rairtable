@@ -19,9 +19,7 @@ create_table(
 update_table(airtable = NULL, name = NULL, description = NULL, ...)
 }
 \arguments{
-\item{airtable}{An airtable class object created with \code{\link[=airtable]{airtable()}}. airtable
-must include a request_url attribute. url is ignored if airtable is
-provided. Optional if url or base \emph{and} table are supplied.}
+\item{airtable}{A \code{airtable} object or Airtable base URL. Required if \code{table} is a table ID and \code{model} is not supplied.}
 
 \item{config}{A table model with a name, description, and field array from
 \code{\link[=make_table_config]{make_table_config()}}.}

@@ -5,7 +5,7 @@
 #'
 #' @param table Airtable table ID or name. Table ID values start with "tbl". If
 #'   table is an Airtable URL matching the pattern
-#'   "https://airtable.com/{baseID}/{tableIdOrName}/{viewId}" the URL is parsed
+#'   "https://airtable.com/\{baseID\}/\{tableIdOrName\}/\{viewId\}" the URL is parsed
 #'   to supply the values for base and table. If table is a named list with the
 #'   names "id", "name", and "description", the value for id is used as the
 #'   value of table and name and description are passed to the respective

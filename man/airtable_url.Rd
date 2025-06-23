@@ -22,8 +22,8 @@ parse_airtable_url(
 }
 \arguments{
 \item{url}{Airtable URL or API URL, typically in the form
-"https://airtable.com/{baseID}/{tableIdOrName}/{viewId}" or
-"https://api.airtable.com/v0/{baseId}/{tableIdOrName}". Note that, by
+"https://airtable.com/\{baseID\}/\{tableIdOrName\}/\{viewId\}" or
+"https://api.airtable.com/v0/\{baseId\}/\{tableIdOrName\}". Note that, by
 default, shared URLs of the form "https://airtable.com/shr..." are not
 supported.}
 

@@ -43,6 +43,18 @@ records to replace with the updated values from data. A vector of record or
 cell URLs is also supported. Optional if data has a record ID column (named
 by airtable_id_col) or rownames with record IDs. Defaults to \code{NULL}.}
 
+\item{model}{Optional. Table model returned by \code{\link[=get_table_model]{get_table_model()}} used to
+validate field names in \code{data}.}
+
+\item{fields_by_id}{If \code{TRUE}, the response to the API request is keyed by
+field IDs instead of field names. The response is only returned if
+\code{return_data = FALSE}.}
+
+\item{typecast}{If \code{TRUE} (default), values will be converted to match the
+base if possible. typecase must be set to \code{TRUE} to add new values to a
+multiselect field type.
+base. Required.}
+
 \item{return_data}{If \code{FALSE}, return JSON response from the Airtable web API
 as a list. If \code{TRUE} (default) and data is not \code{NULL}, return input data
 frame or list.}
@@ -50,6 +62,10 @@ frame or list.}
 \item{safely}{If \code{TRUE}, confirm number and names of columns to update and
 number of rows before executing update. Defaults to \code{NULL} which sets
 safely based on the \code{rairtable.safely} option (which defaults to \code{TRUE}).}
+
+\item{token}{Airtable personal access token, Defaults to \code{NULL} which is set
+to environmental variable for "AIRTABLE_PAT" (from \code{\link[=get_airtable_pat]{get_airtable_pat()}}) or
+"AIRTABLE_API_KEY" (from \code{\link[=get_airtable_api_key]{get_airtable_api_key()}}).}
 
 \item{...}{
   Arguments passed on to \code{\link[=request_airtable]{request_airtable}}
