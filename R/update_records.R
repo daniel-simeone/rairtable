@@ -28,6 +28,9 @@
 #' @param safely If `TRUE`, confirm number and names of columns to update and
 #'   number of rows before executing update. Defaults to `NULL` which sets
 #'   safely based on the `rairtable.safely` option (which defaults to `TRUE`).
+#' @param model Optional. Table model returned by [get_table_model()] used to
+#' validate field names in `data`.
+#' @inheritParams req_update_records
 #' @inheritParams return_data_resp
 #' @inheritDotParams request_airtable -api_url -call
 #' @return A data frame of the input data, to be stored as an object or piped
@@ -119,6 +122,7 @@ update_records <- function(data,
 #'   field IDs instead of field names. The response is only returned if
 #'   `return_data = FALSE`.
 #' @inheritParams req_airtable
+#' @inheritParams req_create_records
 #' @param records,record Record ID or IDs to update as a character vector.
 #' @keywords internal
 #' @importFrom httr2 req_body_json req_perform
@@ -263,7 +267,7 @@ get_record_id_col <- function(data,
       )
     }
 
-    data <- select_cols(tidyselect::all_of(id_col), .data = data, call = call)
+    data <- select_cols(tidyselect::all_of(id_col), .data = data, error_call = call)
     n_cols <- ncol(data)
 
     if (n_cols != 1) {
@@ -306,28 +310,47 @@ get_data_columns <- function(data,
     data <- data[, names(data) != id_col, drop = FALSE]
   }
 
-  select_cols(columns, .data = data, call = call)
+  select_cols(columns, .data = data, error_call = call)
 }
 
 #' Get names of selected columns
 #'
 #' @noRd
-get_data_colnames <- function(..., .data, .drop = FALSE, call = caller_env()) {
-  names(select_cols(..., .data = .data, .drop = .drop, call = call))
+get_data_colnames <- function(...,
+                              .data,
+                              call = caller_env()) {
+  names(select_cols(..., .data = .data, error_call = call))
 }
 
 #' Use tidyselect to pull a column from a data frame
 #'
 #' @noRd
 #' @importFrom tidyselect eval_select
-#' @importFrom rlang expr
-select_cols <- function(..., .data, .drop = FALSE, call = caller_env()) {
-  .data[,
-    tidyselect::eval_select(
-      expr(c(...)),
-      data = .data,
-      error_call = call
-    ),
-    drop = .drop
-  ]
+select_cols <- function(...,
+                        .data,
+                        .field = NULL,
+                        .strict = TRUE,
+                        .include = NULL,
+                        .exclude = NULL,
+                        .name_spec = NULL,
+                        .allow_rename = TRUE,
+                        .allow_empty = TRUE,
+                        .allow_predicates = TRUE,
+                        .env = caller_env(),
+                        error_call = caller_env()) {
+  pos <- tidyselect::eval_select(
+    expr = expr(...),
+    data = .data,
+    env = .env,
+    strict = .strict,
+    include = .include,
+    exclude = .exclude,
+    name_spec = .name_spec,
+    allow_rename = .allow_rename,
+    allow_empty = .allow_empty,
+    allow_predicates = .allow_predicates,
+    error_call = error_call
+  )
+
+  set_names(.data[pos], names(pos))
 }

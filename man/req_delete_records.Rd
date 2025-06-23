@@ -56,12 +56,6 @@ to environmental variable for "AIRTABLE_PAT" (from \code{\link[=get_airtable_pat
 running function, e.g. \code{caller_env()}. The function will be
 mentioned in error messages as the source of the error. See the
 \code{call} argument of \code{\link[rlang:abort]{abort()}} for more information.}
-
-\item{batch}{If \code{TRUE} (default) and more than 10 records are provided, the
-records vector is split into batches of 10. If batch is \code{FALSE}, records
-must be length 10 or less. This default batch size is set by
-"rairtable.batch_size" option. The option default is 10 may be changed if
-the API limit is modified in the future.}
 }
 \description{
 Delete one record from an Airtable table with \code{\link[=req_delete_record]{req_delete_record()}} or delete

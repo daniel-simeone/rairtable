@@ -53,6 +53,10 @@ booleans, numbers, and strings) be caused to atomic vectors?}
 running function, e.g. \code{caller_env()}. The function will be
 mentioned in error messages as the source of the error. See the
 \code{call} argument of \code{\link[rlang:abort]{abort()}} for more information.}
+
+\item{table}{A table ID, table URL, or an \code{airtable} object with a table. Required if \code{model} is not supplied.}
+
+\item{airtable}{A \code{airtable} object or Airtable base URL. Required if \code{table} is a table ID and \code{model} is not supplied.}
 }
 \description{
 Note that copying a config from a table model requires modifying or ignoring

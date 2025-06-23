@@ -109,11 +109,6 @@ delete_records <- function(data = NULL,
 #' @param records Required. Character vector with record IDs. If only one record
 #'   is provided, the parameters are passed to [req_delete_record()]
 #'   https://airtable.com/developers/web/api/delete-multiple-records.
-#' @param batch If `TRUE` (default) and more than 10 records are provided, the
-#'   records vector is split into batches of 10. If batch is `FALSE`, records
-#'   must be length 10 or less. This default batch size is set by
-#'   "rairtable.batch_size" option. The option default is 10 may be changed if
-#'   the API limit is modified in the future.
 #' @inheritDotParams request_airtable
 #' @keywords internal
 #' @importFrom httr2 req_url_path_append req_perform

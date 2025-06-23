@@ -59,6 +59,8 @@ make_table_config <- function(name = NULL,
 #' @param model A model for an existing table to copy for a new table config. If
 #'   name or description are supplied, any existing name or description from the
 #'   model is ignored. model is ignored if table is supplied.
+#' @param table A table ID, table URL, or an `airtable` object with a table. Required if `model` is not supplied.
+#' @param airtable A `airtable` object or Airtable base URL. Required if `table` is a table ID and `model` is not supplied.
 #' @inheritDotParams get_table_model
 #' @export
 copy_table_config <- function(table = NULL,

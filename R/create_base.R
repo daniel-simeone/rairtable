@@ -4,10 +4,14 @@
 #' provided and tables is `NULL`, tables is copied based on the models from an
 #' existing base schema.
 #'
+#' @param name String for base name.
 #' @param workspace A workspace ID (a string starting with "wsp") or URL
 #'   containing a workspace ID.
 #' @param tables An array of table config lists. Data frames are not currently
 #'   supported.
+#' @param schema Optional if `tables` is supplied. A list with a named
+#' `"tables"` element. Typically, expected to be the output from the
+#' [get_base_schema()] funtion.
 #' @inheritParams request_airtable_meta
 #' @inheritParams httr2::resp_body_json
 #' @seealso

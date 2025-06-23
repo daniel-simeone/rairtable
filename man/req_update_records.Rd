@@ -69,6 +69,11 @@ for a view being present in the API request URL.}
 field IDs instead of field names. The response is only returned if
 \code{return_data = FALSE}.}
 
+\item{typecast}{If \code{TRUE} (default), values will be converted to match the
+base if possible. typecase must be set to \code{TRUE} to add new values to a
+multiselect field type.
+base. Required.}
+
 \item{method}{Custom HTTP method}
 
 \item{token}{Airtable personal access token, Defaults to \code{NULL} which is set

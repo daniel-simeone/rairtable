@@ -15,11 +15,17 @@ create_base(
 )
 }
 \arguments{
+\item{name}{String for base name.}
+
 \item{workspace}{A workspace ID (a string starting with "wsp") or URL
 containing a workspace ID.}
 
 \item{tables}{An array of table config lists. Data frames are not currently
 supported.}
+
+\item{schema}{Optional if \code{tables} is supplied. A list with a named
+\code{"tables"} element. Typically, expected to be the output from the
+\code{\link[=get_base_schema]{get_base_schema()}} funtion.}
 
 \item{simplifyVector}{Should JSON arrays containing only primitives (i.e.
 booleans, numbers, and strings) be caused to atomic vectors?}
