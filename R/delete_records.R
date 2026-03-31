@@ -24,6 +24,7 @@ delete_records <- function(data, airtable, airtable_id_col = 'airtable_record_id
 
   validate_airtable(airtable)
   stopifnot(is.data.frame(data))
+  stopifnot(batch_size >= 1)
   stopifnot(batch_size <= 10)
   stopifnot(is.logical(safely))
   if (!is.null(rate)) stopifnot(is.numeric(rate))

@@ -30,6 +30,7 @@ update_records <- function(data, airtable, columns = dplyr::everything(), airtab
 
   validate_airtable(airtable)
   stopifnot(is.data.frame(data))
+  stopifnot(batch_size >= 1)
   stopifnot(batch_size <= 10)
   stopifnot(is.logical(safely))
   stopifnot(is.logical(parallel))

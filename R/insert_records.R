@@ -27,6 +27,7 @@ insert_records <- function(data, airtable, typecast = FALSE, parallel = FALSE, b
 
   validate_airtable(airtable)
   stopifnot(is.data.frame(data))
+  stopifnot(batch_size >= 1)
   stopifnot(batch_size <= 10)
   if (!is.null(rate)) stopifnot(is.numeric(rate))
   if (!is.null(rate)) stopifnot(rate > 0)

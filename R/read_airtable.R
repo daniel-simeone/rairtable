@@ -25,6 +25,7 @@ read_airtable <- function(airtable, fields = NULL, id_to_col = TRUE, max_rows = 
 
   validate_airtable(airtable)
   stopifnot(is.logical(id_to_col))
+  stopifnot(max_rows >= 1)
   stopifnot(max_rows <= 50000)
   if (!is.null(rate)) stopifnot(is.numeric(rate))
   if (!is.null(rate)) stopifnot(rate > 0)
@@ -47,7 +48,7 @@ read_airtable <- function(airtable, fields = NULL, id_to_col = TRUE, max_rows = 
     url <- paste(url, url_params, sep = "?")
   }
   
-  for (idx in 1:length(dta)){
+  for (idx in seq_along(dta)){
 
     response <- httr::GET(url,
                           config = httr::add_headers(
