@@ -14,10 +14,12 @@ batch_encode_post <- function(df, batch_size = 10, parallel = FALSE, typecast = 
     message("JSON encoding data for POST")
     
     cl <- parallel::makeCluster(parallel::detectCores(), type = 'SOCK')
-    
+    on.exit(parallel::stopCluster(cl))
+
     encoded_batches <- parallel::parLapply(cl, x = batches, fun = function(x){ encode_batch_post(x, typecast, prog_bar = NULL) })
-    
+
     parallel::stopCluster(cl)
+    on.exit()
     message(adorn_text("Data JSON Encoded. Beginning POST requests."))
     
   } else {

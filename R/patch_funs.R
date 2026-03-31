@@ -29,10 +29,12 @@ batch_encode_patch <- function(df, id_col = NULL, batch_size = 10, parallel = TR
     message("JSON encoding data for PATCH\n")
 
     cl <- parallel::makeCluster(parallel::detectCores(), type = 'SOCK')
+    on.exit(parallel::stopCluster(cl))
 
     encoded_batches <- parallel::parLapply(cl, x = batches, fun = function(x){ encode_batch_patch(x, prog_bar = NULL) })
 
     parallel::stopCluster(cl)
+    on.exit()
 
     message(adorn_text("Data JSON Encoded. Beginning PATCH requests.\n"))
 
