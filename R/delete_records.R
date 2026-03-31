@@ -7,6 +7,7 @@
 #' @param airtable_id_col Column containing Airtable record IDs. Not required if record IDs are stored in row names as returned from \code{read_airtable}.
 #' @param safely If \code{TRUE}, ask for confirmation before executing DELETE request
 #' @param batch_size Number of requests to send at a time. Maximum of 10.
+#' @param rate Optional maximum number of API calls per second. NULL (default) applies a ~5 calls/second delay between batch requests.
 #'
 #' @return A vector of IDs deleted
 #'
@@ -20,12 +21,14 @@
 #' @importFrom dplyr filter
 #'
 
-delete_records <- function(data, airtable, airtable_id_col = 'airtable_record_id', safely = TRUE, batch_size = 10){
+delete_records <- function(data, airtable, airtable_id_col = 'airtable_record_id', safely = TRUE, batch_size = 10, rate = NULL){
 
   validate_airtable(airtable)
   stopifnot(is.data.frame(data))
   stopifnot(batch_size <= 10)
   stopifnot(is.logical(safely))
+  if (!is.null(rate)) stopifnot(is.numeric(rate))
+  if (!is.null(rate)) stopifnot(rate > 0)
 
   ids <- get_ids(df = data, id_col = rlang::enexpr(airtable_id_col))
 
@@ -36,7 +39,7 @@ delete_records <- function(data, airtable, airtable_id_col = 'airtable_record_id
 
   id_batches <- lapply(split_list(ids, batch_size), function(x) paste0("records[]=", x, collapse = "&"))
 
-  vdelete(ids = id_batches, airtable_obj = airtable)
+  vdelete(ids = id_batches, airtable_obj = airtable, rate = rate)
 
 
   message(adorn_text(paste0("Deleted ", length(ids), " records.")))

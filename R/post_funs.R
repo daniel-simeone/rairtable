@@ -64,8 +64,8 @@ encode_batch_post <- function(list_of_lists, typecast, prog_bar){
 }
 
 
-post <- function(records, airtable_obj, prog_bar){
-  
+post <- function(records, airtable_obj, prog_bar, rate = NULL){
+
   response <- httr::POST(attr(airtable_obj, 'request_url'),
                          config = httr::add_headers(
                            Authorization = paste("Bearer", get_airtable_api_key()),
@@ -73,13 +73,13 @@ post <- function(records, airtable_obj, prog_bar){
                          ),
                          body = records
   )
-  
+
   if (!httr::status_code(response) %in% c(200)){
     stop(paste0("Error in POST. ", process_error(httr::status_code(response))), call. = FALSE)
   }
-  
-  Sys.sleep(.21)
-  
+
+  if (!is.null(rate)) Sys.sleep(1 / rate) else Sys.sleep(.21)
+
   prog_bar$tick()
 }
 

@@ -6,7 +6,8 @@
 #' @param fields An optional list of fields to select.
 #' @param id_to_col If TRUE, store airtable ID as a column rather than as row names
 #' @param max_rows Optional maximum number of rows to read
-#' 
+#' @param rate Optional maximum number of API calls per second. NULL (default) applies no delay between paginated requests.
+#'
 #' @return A dataframe containing the data read from the specified 'Airtable' table
 #' 
 #' @export
@@ -20,11 +21,13 @@
 #' @importFrom tibble column_to_rownames
 #'
 
-read_airtable <- function(airtable, fields = NULL, id_to_col = TRUE, max_rows = 50000){
+read_airtable <- function(airtable, fields = NULL, id_to_col = TRUE, max_rows = 50000, rate = NULL){
 
   validate_airtable(airtable)
   stopifnot(is.logical(id_to_col))
   stopifnot(max_rows <= 50000)
+  if (!is.null(rate)) stopifnot(is.numeric(rate))
+  if (!is.null(rate)) stopifnot(rate > 0)
 
   # pre-allocate space for data
   dta <- vector(ceiling(max_rows/100), mode = 'list')
@@ -67,9 +70,8 @@ read_airtable <- function(airtable, fields = NULL, id_to_col = TRUE, max_rows = 
       break
     }
 
+    if (!is.null(rate)) Sys.sleep(1 / rate)
     query_body['offset'] <- parsed_json_response$offset
-
-    # Sys.sleep(.2)
 
   }
 

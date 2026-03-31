@@ -76,7 +76,7 @@ encode_batch_patch <- function(record_batch, prog_bar = NULL){
 
 vencode_batch_patch <- Vectorize(encode_batch_patch, vectorize.args = c('record_batch'))
 
-patch <- function(records, airtable_obj, prog_bar){
+patch <- function(records, airtable_obj, prog_bar, rate = NULL){
 
   response <- httr::PATCH(attr(airtable_obj, 'request_url'),
                           config = httr::add_headers(
@@ -90,7 +90,7 @@ patch <- function(records, airtable_obj, prog_bar){
     stop(paste0("Error in PATCH ", process_error(httr::status_code(response))), call. = FALSE)
   }
 
-  Sys.sleep(.21)
+  if (!is.null(rate)) Sys.sleep(1 / rate) else Sys.sleep(.21)
 
   invisible(prog_bar$tick())
 

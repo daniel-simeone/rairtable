@@ -9,6 +9,7 @@
 #' @param safely If \code{TRUE}, confirm number and names of columns to update and number of rows before executing update.
 #' @param parallel If \code{TRUE} use parallel processing for encoding large tables
 #' @param batch_size Number of records to update per request. Maximum of 10
+#' @param rate Optional maximum number of API calls per second. NULL (default) applies a ~5 calls/second delay between batch requests.
 #' 
 #' @return A dataframe (invisibly) of the input data, to be stored as an object or piped into further `dplyr` functions
 #' 
@@ -25,13 +26,15 @@
 #' @importFrom dplyr pull
 #'
 
-update_records <- function(data, airtable, columns = dplyr::everything(), airtable_id_col = 'airtable_record_id', safely = TRUE, parallel = FALSE, batch_size = 10){
+update_records <- function(data, airtable, columns = dplyr::everything(), airtable_id_col = 'airtable_record_id', safely = TRUE, parallel = FALSE, batch_size = 10, rate = NULL){
 
   validate_airtable(airtable)
   stopifnot(is.data.frame(data))
   stopifnot(batch_size <= 10)
   stopifnot(is.logical(safely))
   stopifnot(is.logical(parallel))
+  if (!is.null(rate)) stopifnot(is.numeric(rate))
+  if (!is.null(rate)) stopifnot(rate > 0)
 
   if (!tibble::has_rownames(data) & is.null(rlang::enexpr(airtable_id_col))){
     stop("Data must either have Airtable IDs in row names or a provided ID column", call. = FALSE)
@@ -62,7 +65,7 @@ update_records <- function(data, airtable, columns = dplyr::everything(), airtab
                                    format = "  Sending PATCH requests [:bar] :percent eta: :eta"
   )
 
-  vpatch(batch_json_requests, airtable, pb)
+  vpatch(batch_json_requests, airtable, pb, rate = rate)
 
   return(invisible(data))
 }

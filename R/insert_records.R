@@ -7,6 +7,7 @@
 #' @param typecast If \code{TRUE}, values will be converted to match the base if possible. Set to \code{TRUE} to add new values to a multi select field.
 #' @param parallel If \code{TRUE}, use parallel processing for encoding large tables
 #' @param batch_size Number of records per request to insert. Maximum of 10
+#' @param rate Optional maximum number of API calls per second. NULL (default) applies a ~5 calls/second delay between batch requests.
 #' 
 #' @return A dataframe (invisibly) of the input data, to be stored as an object or piped into further `dplyr` functions
 #' 
@@ -22,11 +23,13 @@
 #' @importFrom jsonlite toJSON
 #'
 
-insert_records <- function(data, airtable, typecast = FALSE, parallel = FALSE, batch_size = 10){
+insert_records <- function(data, airtable, typecast = FALSE, parallel = FALSE, batch_size = 10, rate = NULL){
 
   validate_airtable(airtable)
   stopifnot(is.data.frame(data))
   stopifnot(batch_size <= 10)
+  if (!is.null(rate)) stopifnot(is.numeric(rate))
+  if (!is.null(rate)) stopifnot(rate > 0)
 
   batch_json_requests <- batch_encode_post(data, batch_size = batch_size, parallel = parallel, typecast = typecast)
 
@@ -35,7 +38,7 @@ insert_records <- function(data, airtable, typecast = FALSE, parallel = FALSE, b
                                    format = "  Creating records: [:bar] :percent eta: :eta"
                                    )
 
-  vpost(records = batch_json_requests, airtable_obj = airtable, prog_bar = pb)
+  vpost(records = batch_json_requests, airtable_obj = airtable, prog_bar = pb, rate = rate)
 
   return(invisible(data))
 }
