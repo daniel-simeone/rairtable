@@ -1,4 +1,5 @@
 
+#' @importFrom httr DELETE
 delete <- function(ids, airtable_obj, rate = NULL){
   response <- httr::DELETE(sprintf("%s?%s", attr(airtable_obj, 'request_url'), ids),
                            config = httr::add_headers(

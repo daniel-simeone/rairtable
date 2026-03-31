@@ -42,7 +42,7 @@ validate_airtable <- function(airtable_obj){
   }
 
   if (length(table) < 1){
-    stop("You muist provide an Airtable table name. `table` should be a single character value", call. = FALSE)
+    stop("You must provide an Airtable table name. `table` should be a single character value", call. = FALSE)
   }
 
   if (length(base) > 1){
@@ -50,7 +50,7 @@ validate_airtable <- function(airtable_obj){
   }
 
   if (length(base) < 1){
-    stop("You muist provide an Airtable base name. `base` should be a single character value", call. = FALSE)
+    stop("You must provide an Airtable base name. `base` should be a single character value", call. = FALSE)
   }
 
   if (length(view) > 1){

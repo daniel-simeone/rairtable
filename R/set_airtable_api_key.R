@@ -20,7 +20,7 @@
 #'
 #' @examples
 #' \dontrun{
-#' airtable_api_key("XXXXXXXXXX", install = TRUE)
+#' set_airtable_api_key("XXXXXXXXXX", install = TRUE)
 #' }
 #'
 

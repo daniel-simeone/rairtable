@@ -18,7 +18,6 @@
 #' @importFrom crayon red
 #' @importFrom cli symbol
 #' @importFrom rlang enexpr
-#' @importFrom dplyr filter
 #'
 
 delete_records <- function(data, airtable, airtable_id_col = 'airtable_record_id', safely = TRUE, batch_size = 10, rate = NULL){
